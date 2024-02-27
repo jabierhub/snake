@@ -10,26 +10,35 @@ import javax.swing.JRadioButton;
 
 //needs massive aesthetic rewrites
 
-public class PlayerSelectScreen extends JPanel {
+/**
+ *
+ * @author estardead
+ */
+
+public class PlayerSelectScreen extends botones {
 	JButton go;
-	JButton quit;
 	MainWindow mw;
 	
-	JRadioButton opt1;
-	JRadioButton opt2;
-	JRadioButton opt3;
-	
-	public void quitButtonActionListener(){
+    /**
+     *
+     */
+    public void quitButtonActionListener(){
 		mw.showCard("One");
 	}
 	
-	public void goButtonActionListener(){
+    /**
+     *
+     */
+    public void goButtonActionListener(){
 		playerOptions();
 		mw.s4.setUpPlayers();
 		mw.showCard("Three");
 	}
 	
-	public void playerOptions(){
+    /**
+     *
+     */
+    public void playerOptions(){
 		int m = 5;
 		if(opt1.isSelected() == true)
 		    m = 1;
@@ -40,7 +49,11 @@ public class PlayerSelectScreen extends JPanel {
 	    mw.s4.setMaxPlayers(m);
 	}
 	
-	public PlayerSelectScreen(MainWindow mw){
+    /**
+     *
+     * @param mw
+     */
+    public PlayerSelectScreen(MainWindow mw){
 		this.mw = mw;
 		
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -68,42 +81,40 @@ public class PlayerSelectScreen extends JPanel {
 		add(opt2);
 		add(opt3);
 
-		opt1.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-				playerOptions();
-			}
-		});
-		opt2.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-				playerOptions();
-			}
-		});
+		opt1.addActionListener((ActionEvent event) -> {
+                    playerOptions();
+                });
+		opt2.addActionListener(new ActionListenerImpl());
 		
-		opt3.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-				playerOptions();
-			}
-		});
+		opt3.addActionListener((ActionEvent event) -> {
+                    playerOptions();
+                });
 		
 		go = new JButton("Customize Board");
 		quit = new JButton("Back");	
 		
-		go.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-				goButtonActionListener();
-			}
-		});
+		go.addActionListener((ActionEvent event) -> {
+                    goButtonActionListener();
+                });
 		
-		quit.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-				 quitButtonActionListener();
-			}
-		});
+		quit.addActionListener((ActionEvent event) -> {
+                    quitButtonActionListener();
+                });
 		
 		add(go);
 		add(quit);
 		
 	}
+
+    private class ActionListenerImpl implements ActionListener {
+
+        public ActionListenerImpl() {
+        }
+
+        public void actionPerformed(ActionEvent event){
+            playerOptions();
+        }
+    }
 	
 
 }
